@@ -1,5 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,29 +29,23 @@
     </div>
 </nav>
 <div class="container mt-3">
+    <form action="/product/update" method="post" enctype="application/x-www-form-urlencoded">
 
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>상품번호</th>
-            <th>상품명</th>
-            <th>상품가격</th>
-            <th>상품재고</th>
-        </tr>
-        </thead>
+        <div class="mb-3 mt-3">
+            <input type="text" class="form-control" value="${product.id}" name="id">
+        </div>
+        <div class="mb-3 mt-3">
+            <input type="text" class="form-control" value="${product.name}" name="name">
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" value="${product.price}" name="price">
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" value="${product.qty}" name="qty">
+        </div>
 
-        <tbody>
-            <c:forEach var="p" items="${ProductList}">
-            <tr>
-                <td>${p.id}</td>
-                <td><a href = "/product/${p.id}">${p.name}</a></td>
-                <td>${p.price}원</td>
-                <td>${p.qty}개</td>
-            </tr>
-            </c:forEach>
-        </tbody>
-    </table>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 </div>
-
 </body>
 </html>
