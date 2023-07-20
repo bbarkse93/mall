@@ -58,10 +58,21 @@ public class ProductRepository {
     }
 
     // insert, update, delete에는 @Transactional을 붙여야 한다.
-    @Transactional
+    @Transactional //import 주의
     public void deleteById(int id){
         Query query = em.createNativeQuery("delete from product_tb where id = :id");
         query.setParameter("id", id);
         query.executeUpdate();
     }
+
+    @Transactional //import 주의
+    public void update(int id, String name, int price, int qty){
+        Query query = em.createNativeQuery("update product_tb set name = :name, price = :price, qty = :qty where id = :id");
+        query.setParameter("id", id);
+        query.setParameter("name", name);
+        query.setParameter("price", price);
+        query.setParameter("qty", qty);
+        query.executeUpdate();
+    }
+
 }

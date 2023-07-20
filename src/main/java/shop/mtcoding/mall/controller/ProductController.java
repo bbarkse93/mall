@@ -69,5 +69,12 @@ public class ProductController {
         return "detail";
     }
 
+    @PostMapping("/product/update")
+    public String update(int id, String name, int price, int qty) {
+        productRepository.update(id, name, price, qty);
+
+        return "redirect:/";
+    }
+
 
 }
