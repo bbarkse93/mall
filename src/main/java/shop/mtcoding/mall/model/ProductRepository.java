@@ -31,7 +31,8 @@ public class ProductRepository {
     }
 
     public Product findById(int id) {
-        Query query = em.createNativeQuery("select * from product_tb where id = :id", Product.class);
+        Query query = em.createNativeQuery("select * from product_tb " +
+                "where id = :id", Product.class);
         query.setParameter("id", id);
         Product product = (Product) query.getSingleResult();
         return product;
@@ -54,5 +55,13 @@ public class ProductRepository {
         product.setPrice(price2);
         product.setQty(qty2);
         return product;
+    }
+
+    // insert, update, delete에는 @Transactional을 붙여야 한다.
+    @Transactional
+    public void deleteById(int id){
+        Query query = em.createNativeQuery("delete from product_tb where id = :id");
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 }
