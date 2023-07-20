@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository // 컴포넌트 스캔
 public class ProductRepository {
@@ -21,5 +22,11 @@ public class ProductRepository {
         query.setParameter("price", price);
         query.setParameter("qty", qty);
         query.executeUpdate();
+    }
+
+    public List<Product> findAll() {
+        Query query = em.createNativeQuery("select * from product_tb", Product.class);
+        List<Product> productList = query.getResultList();
+        return productList;
     }
 }
