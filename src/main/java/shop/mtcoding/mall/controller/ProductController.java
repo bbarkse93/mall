@@ -25,8 +25,7 @@ public class ProductController {
     public String delete(int id) {
         productRepository.deleteById(id);
 
-//        response.sendRedirect("/"); 원래는 이걸 사용해야 한다.
-        return "redirect:/"; // 스프링에서 제공하는 문법
+        return "redirect:/";
     }
 
     @GetMapping("/")
@@ -48,7 +47,6 @@ public class ProductController {
         System.out.println("qty : " + qty);
 
         productRepository.save(name, price, qty);
-
         // 컨트롤러의 메서드를 재호출하는 방법
 //        response.sendRedirect("/");
         return "redirect:/";

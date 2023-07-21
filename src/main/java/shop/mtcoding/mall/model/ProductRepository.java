@@ -1,5 +1,6 @@
 package shop.mtcoding.mall.model;
 
+import org.qlrm.mapper.JpaResultMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -12,11 +13,21 @@ import java.util.List;
 @Repository // 컴포넌트 스캔
 public class ProductRepository {
 
-    @Autowired
+    @Autowired // EntityManager는 Entity만 매핑해준다.
     private EntityManager em;
 
+    public ProductDTO findByIdDTO(int id) {
+        Query query = em.createNativeQuery("select id, name, price, qty, '설명' des from product_tb where id = :id");
+        query.setParameter("id", id);
+
+        JpaResultMapper mapper = new JpaResultMapper();
+        ProductDTO productDTO = mapper.uniqueResult(query, ProductDTO.class);
+
+        return productDTO;
+    }
+
     @Transactional
-    public void save(String name, int price, int qty){
+    public void save(String name, int price, int qty) {
         Query query = em.createNativeQuery("insert into product_tb(name, price, qty) values (:name, :price, :qty)");
         query.setParameter("name", name);
         query.setParameter("price", price);
@@ -38,6 +49,7 @@ public class ProductRepository {
         return product;
     }
 
+    // 원래 매핑은 이렇게 하는 것이다!
     public Product findById2(int id) {
         Query query = em.createNativeQuery("select * from product_tb where id = :id");
         query.setParameter("id", id);
@@ -59,14 +71,14 @@ public class ProductRepository {
 
     // insert, update, delete에는 @Transactional을 붙여야 한다.
     @Transactional //import 주의
-    public void deleteById(int id){
+    public void deleteById(int id) {
         Query query = em.createNativeQuery("delete from product_tb where id = :id");
         query.setParameter("id", id);
         query.executeUpdate();
     }
 
     @Transactional //import 주의
-    public void update(int id, String name, int price, int qty){
+    public void update(int id, String name, int price, int qty) {
         Query query = em.createNativeQuery("update product_tb set name = :name, price = :price, qty = :qty where id = :id");
         query.setParameter("id", id);
         query.setParameter("name", name);

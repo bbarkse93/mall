@@ -6,7 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Table(name = "product_tb")
-@Entity
+@Entity // 테이블의 모델
 @Getter
 @Setter
 public class Product {
