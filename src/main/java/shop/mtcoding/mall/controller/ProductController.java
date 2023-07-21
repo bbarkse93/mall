@@ -21,13 +21,6 @@ public class ProductController {
     @Autowired
     private ProductRepository productRepository;
 
-    @PostMapping("/product/delete")
-    public String delete(int id) {
-        productRepository.deleteById(id);
-
-        return "redirect:/";
-    }
-
     @GetMapping("/")
     public String home(HttpServletRequest request) {
         List<Product> productList = productRepository.findAll();
@@ -67,12 +60,18 @@ public class ProductController {
         return "detail";
     }
 
+    @PostMapping("/product/delete")
+    public String delete(int id) {
+        productRepository.deleteById(id);
+
+        return "redirect:/";
+    }
+
     @PostMapping("/product/update")
     public String update(int id, String name, int price, int qty) {
         productRepository.update(id, name, price, qty);
 
         return "redirect:/";
     }
-
 
 }

@@ -19,7 +19,6 @@ public class ProductRepositoryTest {
         // given
         productRepository.save("바나나", 5000, 50);
 
-        dependency injection
         // when
         ProductDTO productDTO = productRepository.findByIdDTO(1);
 
@@ -30,7 +29,6 @@ public class ProductRepositoryTest {
         System.out.println(productDTO.getDes());
 
         }
-
 
     @Test
     public void findById_test() {
@@ -43,6 +41,23 @@ public class ProductRepositoryTest {
         // then ( 테스트 확인 )
         System.out.println(product.getId());
         System.out.println(product.getName());
+        System.out.println(product.getPrice());
+        System.out.println(product.getQty());
+    }
+
+    @Test
+    public void findByIdJoinSeller_test() {
+        // given ( 테스트를 하기 위해서 필요한 데이터 만들기 )
+        productRepository.save("바나나", 5000, 50);
+
+        // when ( 테스트 진행 )
+        Product product = productRepository.findById(1);
+
+        // then ( 테스트 확인 )
+        System.out.println(product.getId());
+        System.out.println(product.getName());
+        System.out.println(product.getPrice());
+        System.out.println(product.getQty());
     }
 
     @Test
